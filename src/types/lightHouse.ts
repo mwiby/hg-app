@@ -12,3 +12,6 @@ export interface LightHouse {
     builtYear: number;
     height: string;
   }
+
+
+  

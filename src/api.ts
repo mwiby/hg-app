@@ -1,14 +1,14 @@
+export const fetchAISData = async () => {
+  const response = await fetch('https://liveais.barentswatch.no/v1/latest', {
+    headers: {
+      Authorization: `Bearer ${process.env.REACT_APP_BARIENTSWATCH_API_KEY}`,
+    },
+  });
 
-export const fetchLightHouses = async () => {
-  
-    const response = await fetch(
-      'https://api.openseamap.org/api/geonames?lang=en&lat=54.1&lon=13.4'
-    );
-  
-    if (!response.ok) {
-      throw new Error('Failed to fetch harbor data');
-    }
-  
-    const data = await response.json();
-    return data;
-  };
+  if (!response.ok) {
+    throw new Error('Failed to fetch AIS data');
+  }
+
+  const data = await response.json();
+  return data;
+};
