@@ -6,6 +6,6 @@ export interface product {
     id: number;
     name: string;
     ingredients: string;
-    currentPrice: number;
+    current_price: number;
   }
 
