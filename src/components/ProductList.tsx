@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAISData } from "../api";
+import { fetchProductData } from "../api";
 
-const AISComponent = () => {
+const ProductList = () => {
   const { data, error, isLoading } = useQuery({
-    queryKey: ['aisData'],
-    queryFn: fetchAISData,
+    queryKey: ['productData'],
+    queryFn: fetchProductData,
   });
 
   if (isLoading) {
@@ -16,21 +16,27 @@ const AISComponent = () => {
   }
 
   if (!data || data.length === 0) {
-    return <p>No AIS data found</p>;
+    return <p>No product data found</p>;
   }
+
+  console.log('Data: ' + data);
 
   return (
     <div>
-      <h1>AIS Data</h1>
+      <h1>|Product Data|</h1>
+
+      {/*
       <ul>
         {data.map((products: any, index: number) => (
           <li key={index}>
-            Ship: {ship.name}, Position: {ship.position.latitude}, {ship.position.longitude}, Speed: {ship.speed}
+            Product: {ship.name}, Position: {ship.position.latitude}, {ship.position.longitude}, Speed: {ship.speed}
           </li>
         ))}
       </ul>
+      */}
+
     </div>
   );
 };
 
-export default AISComponent;
+export default ProductList;

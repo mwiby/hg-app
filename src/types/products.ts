@@ -5,10 +5,7 @@ export interface productData {
 export interface product {
     id: number;
     name: string;
-    country: string;
-    latitude: number;
-    longitude: number;
-    builtYear: number;
-    height: string;
+    ingredients: string;
+    currentPrice: number;
   }
 
