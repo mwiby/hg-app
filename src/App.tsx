@@ -1,4 +1,4 @@
-import LightHouse from "./components/LightHouse"
+import LightHouse from "./components/AISDataComponent"
 
 const App = () => {
 
@@ -9,9 +9,8 @@ const App = () => {
         <LightHouse />
       </div>    
     </>
-
-    
   )
 }
 
 export default App
+

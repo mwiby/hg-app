@@ -23,7 +23,7 @@ const AISComponent = () => {
     <div>
       <h1>AIS Data</h1>
       <ul>
-        {data.map((ship: any, index: number) => (
+        {data.map((products: any, index: number) => (
           <li key={index}>
             Ship: {ship.name}, Position: {ship.position.latitude}, {ship.position.longitude}, Speed: {ship.speed}
           </li>
