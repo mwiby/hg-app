@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductData } from "../api";
+import { Product } from "../types/dataTypes";
 
 const ProductList = () => {
-  const { data, error, isLoading } = useQuery({
+  // Use the query to fetch product data
+  const { data, error, isLoading } = useQuery<Product[]>({
     queryKey: ['productData'],
     queryFn: fetchProductData,
   });
@@ -12,29 +14,29 @@ const ProductList = () => {
   }
 
   if (error) {
-    return <p>API response Error: {error.message}</p>;
+    return <p>API response Error: {error instanceof Error ? error.message : 'Unknown error'}</p>;
   }
 
   if (!data || data.length === 0) {
     return <p>No product data found</p>;
   }
 
-  console.log('Data: ' + data);
-
   return (
     <div>
-      <h1>|Product Data|</h1>
-
-      {/*
+      <h1>| Product Data |</h1>
       <ul>
-        {data.map((products: any, index: number) => (
-          <li key={index}>
-            Product: {ship.name}, Position: {ship.position.latitude}, {ship.position.longitude}, Speed: {ship.speed}
+        {data.map((product: Product) => ( 
+          <li key={product.id}> 
+            <h2>{product.name}</h2> 
+            <p>Price: {product.current_price} {product.weight_unit}</p> 
+            <p>Ingredients: {product.ingredients}</p> 
+            <p>Brand: {product.brand}</p> 
+            <p>Store: {product.store.name}</p> 
+            <img src={product.image} alt={product.name} style={{ width: '100px', height: 'auto' }} /> 
+            <a href={product.url} target="_blank" rel="noopener noreferrer">View Product</a> 
           </li>
         ))}
       </ul>
-      */}
-
     </div>
   );
 };
