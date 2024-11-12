@@ -10,9 +10,8 @@ export const fetchProductData = async (): Promise<Product[]> => {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch product data');
+    throw new Error('Failed to fetch product data, something went wrong on api or with token.');
   }
 
-  const json: ProductDataResponse = await response.json();
-  return json.data;
+  return(await response.json() as ProductDataResponse).data;
 };
