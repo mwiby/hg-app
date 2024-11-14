@@ -1,8 +1,19 @@
-
 export interface Category {
   id: number;
   depth: number;
   name: string;
+}
+
+export interface Store {
+  name: string;
+  code: string;
+  url: string;
+  logo: string;
+}
+
+export interface PriceHistory {
+  price: number;
+  date: string;
 }
 
 export interface Product {
@@ -20,21 +31,11 @@ export interface Product {
   current_unit_price: number;
   weight: number;
   weight_unit: string;
-  store: {
-      name: string;
-      code: string;
-      url: string;
-      logo: string;
-  };
-  price_history: {
-      price: number;
-      date: string;
-  }[];
-  allergens: string[]; 
+  store: Store;
+  price_history: PriceHistory[];
+  allergens: string[];
+  nutrition: string[];
+  labels: string[];
   created_at: string;
   updated_at: string;
-}
-
-export interface ProductDataResponse {
-  data: Product[]; 
 }
