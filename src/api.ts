@@ -1,4 +1,4 @@
-import { Product, ProductDataResponse } from './types/dataTypes';
+import { Product } from './types/dataTypes';
 
 export const fetchProductData = async (): Promise<Product[]> => {
   const apiKey = import.meta.env.VITE_KASSALAPP_TOKEN;
