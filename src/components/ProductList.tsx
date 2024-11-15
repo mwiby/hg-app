@@ -4,11 +4,12 @@ import { fetchProductData } from "../api";
 import { Product } from "../types/dataTypes";
 
 const ProductList = () => {
+  /*
   const { data, error, isLoading } = useQuery<Product[]>({
     queryKey: ["productData"],
     queryFn: fetchProductData,
   });
-
+*/
   const [sortCriteria, setSortCriteria] = useState<"price" | "name">("price");
 
   if (isLoading) return <p>Loading...</p>;
@@ -27,9 +28,9 @@ const ProductList = () => {
   return (
     <div className="px-4 w-full max-w-5xl mx-auto">
       <div className="flex justify-between items-center py-4 mb-6 bg-blue-50 rounded-lg shadow-sm">
-        <h1 className="text-2xl font-semibold text-blue-700">Product List</h1>
+        <h1 className="text-2xl font-semibold text-blue-700">Produktliste</h1>
         <div className="flex items-center space-x-4">
-          <span className="text-gray-600">Sort by:</span>
+          <span className="text-gray-600">Sorter etter:</span>
           <button
             onClick={() => setSortCriteria("price")}
             className={`px-3 py-1 rounded-lg text-sm font-medium ${
@@ -38,7 +39,7 @@ const ProductList = () => {
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >
-            Price
+            Pris
           </button>
           <button
             onClick={() => setSortCriteria("name")}
@@ -48,7 +49,7 @@ const ProductList = () => {
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >
-            Name
+            Navn
           </button>
         </div>
       </div>
@@ -67,9 +68,9 @@ const ProductList = () => {
               />
               <h2 className="text-lg font-medium text-gray-800">{product.name}</h2>
               <p className="text-md text-blue-600 font-semibold mb-1">Price: ${product.current_price}</p>
-              <p className="text-sm text-gray-500 mb-1">Vendor: {product.vendor}</p>
+              <p className="text-sm text-gray-500 mb-1">Leverandør: {product.vendor}</p>
               <p className="text-sm text-gray-600">
-                Store: <span className="font-medium">{product.store.name}</span>
+                Butikk: <span className="font-medium">{product.store.name}</span>
               </p>
             </a>
           </li>
