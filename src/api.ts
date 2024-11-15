@@ -1,5 +1,9 @@
 import { Product } from './types/dataTypes';
 
+interface ProductDataResponse {
+  data: Product[];
+}
+
 export const fetchProductData = async (): Promise<Product[]> => {
   const apiKey = import.meta.env.VITE_KASSALAPP_TOKEN;
 
@@ -10,8 +14,9 @@ export const fetchProductData = async (): Promise<Product[]> => {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch product data, something went wrong on api or with token.');
+    throw new Error('Failed to fetch product data, something went wrong on API or with the token.');
   }
 
-  return(await response.json() as ProductDataResponse).data;
+  const res = await response.json() as ProductDataResponse;
+  return res.data;
 };
