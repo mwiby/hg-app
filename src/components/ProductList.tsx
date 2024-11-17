@@ -81,7 +81,7 @@ const ProductList = () => {
                 className="w-full h-48 object-cover rounded-md mb-3"
               />
               <h2 className="text-lg font-medium text-gray-800">{product.name}</h2>
-              <p className="text-md text-blue-600 font-semibold mb-1">Price: ${product.current_price}</p>
+              <p className="text-md text-blue-600 font-semibold mb-1">Pris: {product.current_price}</p>
               <p className="text-sm text-gray-500 mb-1">Leverandør: {product.vendor}</p>
               <p className="text-sm text-gray-600">
                 Butikk: <span className="font-medium">{product.store.name}</span>
