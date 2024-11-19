@@ -12,6 +12,7 @@ const ProductList = () => {
   });
 
   const [sortCriteria, setSortCriteria] = useState<"price" | "name">("price");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [currentPage, setCurrentPage] = useState(1);
 
   if (isLoading) return <p>Loading...</p>;
@@ -20,9 +21,13 @@ const ProductList = () => {
 
   const sortedData = [...data].sort((a, b) => {
     if (sortCriteria === "price") {
-      return a.current_price - b.current_price;
+      return sortOrder === "asc"
+        ? a.current_price - b.current_price
+        : b.current_price - a.current_price;
     } else if (sortCriteria === "name") {
-      return a.name.localeCompare(b.name);
+      return sortOrder === "asc"
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name);
     }
     return 0;
   });
@@ -45,26 +50,24 @@ const ProductList = () => {
         <h1 className="text-2xl font-semibold text-blue-700">Produktliste</h1>
         <div className="flex items-center space-x-4">
           <span className="text-gray-600">Sorter etter:</span>
-          <button
-            onClick={() => setSortCriteria("price")}
-            className={`px-3 py-1 rounded-lg text-sm font-medium ${
-              sortCriteria === "price"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
+          <select
+            value={`${sortCriteria}-${sortOrder}`}
+            onChange={(e) => {
+
+              const [criteria, order] = e.target.value.split("-");
+              setSortCriteria(criteria as "price" | "name");
+              setSortOrder(order as "asc" | "desc");
+            }}
+
+            className="px-3 py-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-700"
           >
-            Pris
-          </button>
-          <button
-            onClick={() => setSortCriteria("name")}
-            className={`px-3 py-1 rounded-lg text-sm font-medium ${
-              sortCriteria === "name"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            Navn
-          </button>
+
+            <option value="price-asc">Pris (lavest først)</option>
+            <option value="price-desc">Pris (høyest først)</option>
+            <option value="name-asc">Navn (A til Å)</option>
+            <option value="name-desc">Navn (Å til A)</option>
+          </select>
+
         </div>
       </div>
 
