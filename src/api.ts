@@ -4,7 +4,7 @@ import { ProductDataResponse,Product } from './types/dataTypes';
 export const fetchProductData = async (): Promise<Product[]> => {
   const apiKey = import.meta.env.VITE_KASSALAPP_TOKEN;
 
-  const response = await fetch('https://kassal.app/api/v1/products', {
+  const response = await fetch('https://kassal.app/api/v1/products?size=100', {
     headers: {
       Authorization: `Bearer ${apiKey}`,
     },
