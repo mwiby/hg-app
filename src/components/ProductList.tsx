@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductData } from "../api";
 import { Product } from "../types/dataTypes";
+import Pagination from "./Pagination";
 
-const ITEMS_PER_PAGE = 6;
+const PROD_PER_PAGE = 9;
 
 const ProductList = () => {
   const { data, error, isLoading } = useQuery<Product[]>({
@@ -33,16 +34,10 @@ const ProductList = () => {
   });
 
   const totalItems = sortedData.length;
-  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const totalPages = Math.ceil(totalItems / PROD_PER_PAGE);
+  const startIndex = (currentPage - 1) * PROD_PER_PAGE;
+  const endIndex = startIndex + PROD_PER_PAGE;
   const currentPageData = sortedData.slice(startIndex, endIndex);
-
-  const handlePageChange = (newPage: number) => {
-    if (newPage > 0 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
 
   return (
     <div className="px-4 w-full max-w-5xl mx-auto">
@@ -94,25 +89,11 @@ const ProductList = () => {
         ))}
       </ul>
 
-      <div className="flex justify-center items-center mt-6">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="px-4 py-2 mx-1 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50"
-        >
-          Forrige
-        </button>
-        <span className="px-4 py-2 mx-1 text-gray-700">
-          Side {currentPage} av {totalPages}
-        </span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="px-4 py-2 mx-1 bg-gray-200 text-gray-700 rounded-lg disabled:opacity-50"
-        >
-          Neste
-        </button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 };

@@ -43,3 +43,9 @@ export interface Product {
 export interface ProductDataResponse {
   data: Product[];
 }
+
+export interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+}

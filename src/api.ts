@@ -1,4 +1,4 @@
-import { ProductDataResponse,Product } from './types/dataTypes';
+import { ProductDataResponse, Product } from './types/dataTypes';
 
 
 export const fetchProductData = async (): Promise<Product[]> => {
