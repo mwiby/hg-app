@@ -49,3 +49,14 @@ export interface PaginationProps {
   totalPages: number;
   onPageChange: (page: number) => void;
 }
+
+export interface ProductModalProps {
+  product: Product | null;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface ProductItemProps {
+  product: Product;
+  onClick: (product: Product) => void;
+}
