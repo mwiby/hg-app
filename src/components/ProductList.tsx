@@ -6,8 +6,6 @@ import Pagination from "./Pagination";
 import ProductModal from "./ProductModal";
 import ProductItem from "./ProductItem";
 
-
-
 const PROD_PER_PAGE = 9;
 
 const ProductList = () => {

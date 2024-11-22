@@ -1,4 +1,5 @@
 import ProductList from "./components/ProductList";
+import ProductSearch from "./components/ProductSearch";
 
 const App = () => {
   return (
@@ -7,9 +8,9 @@ const App = () => {
         <h1 className="text-4xl font-bold text-blue-700 mb-3">Handle-Guiden</h1>
         <p className="text-lg text-gray-600">Se etter dagligvarer</p>
       </header>
-      
       <main className="w-full max-w-6xl px-4">
         <ProductList />
+        <ProductSearch />
       </main>
     </div>
   );
