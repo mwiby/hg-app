@@ -88,3 +88,8 @@ export interface Store {
 export interface StoreDataResponse {
   data: Store[];
 }
+
+export interface StoreItemProps {
+  store: Store;
+  onClick: (store: Store) => void;
+}
