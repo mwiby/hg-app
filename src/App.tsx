@@ -1,6 +1,6 @@
 import { Routes, Route, NavLink } from "react-router-dom";
 import ProductList from "./components/ProductList";
-import ProductSearch from "./components/ProductSearch";
+import StoreList from "./components/StoreList";
 
 const App = () => {
   return (
@@ -19,12 +19,12 @@ const App = () => {
                 Produkter
               </NavLink>
               <NavLink
-                to="/search"
+                to="/searchStore"
                 className={({ isActive }) =>
                   `px-3 py-2 rounded-lg ${isActive ? "bg-blue-500" : "hover:bg-blue-600"}`
                 }
               >
-                Søk
+                Finn butikk
               </NavLink>
             </div>
           </div>
@@ -33,7 +33,7 @@ const App = () => {
       <main className="flex-grow w-full max-w-6xl mx-auto px-4 py-6">
         <Routes>
           <Route path="/" element={<ProductList />} />
-          <Route path="/search" element={<ProductSearch />} />
+          <Route path="/searchStore" element={<StoreList />} />
         </Routes>
       </main>
     </div>
