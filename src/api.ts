@@ -23,7 +23,7 @@ export const fetchProductData = async (): Promise<Product[]> => {
 
 export const fetchStoreData = async (search: string = ""): Promise<Store[]> => {
 
-  const response = await fetch(`https://kassal.app/api/v1/physical-stores?size=100&search${encodeURIComponent(search)}`,
+  const response = await fetch(`https://kassal.app/api/v1/physical-stores?size=100&search=${encodeURIComponent(search)}`,
     {
       headers: {
         Authorization: `Bearer ${apiKey}`
