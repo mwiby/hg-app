@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchStoreData } from "../api";
-import { Store } from "../types/dataTypes";
+import { Store, StoreLabels } from "../types/dataTypes";
 import Pagination from "./Pagination";
 import StoreItem from "./StoreItem";
+
 
 const STORE_PER_PAGE = 10;
 
@@ -80,7 +81,7 @@ const StoreList = () => {
               onClick={() => setSelectedGroup(group)}
               className={`px-3 py-2 rounded ${selectedGroup === group ? "bg-blue-600 text-white" : "bg-gray-200"}`}
             >
-              {group}
+              {StoreLabels[group] || group}
             </button>
           ))}
         </div>

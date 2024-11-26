@@ -93,3 +93,27 @@ export interface StoreItemProps {
   store: Store;
   onClick: (store: Store) => void;
 }
+
+export const StoreLabels: Record<string, string> = {
+  ALLTIMAT: "AlltiMat",
+  BUNNPRIS: "Bunnpris",
+  COOP_BYGGMIX: "Coop Byggmix",
+  COOP_ELEKTRO: "Coop Elektro",
+  COOP_EXTRA: "Coop Extra",
+  COOP_MARKED: "Coop Marked",
+  COOP_MEGA: "Coop Mega",
+  COOP_OBS: "Obs",
+  COOP_OBS_BYGG: "Obs Bygg",
+  COOP_PRIX: "Coop Prix",
+  EUROPRIS_NO: "Europris",
+  FUDI: "FUDI",
+  GIGABOKS: "Gigaboks",
+  HAVARISTEN: "Havaristen",
+  JOKER_NO: "Joker",
+  KIWI: "KIWI",
+  MATKROKEN: "Matkroken",
+  MENY_NO: "Meny",
+  NAERBUTIKKEN: "Nærbutikken",
+  REMA_1000: "REMA 1000",
+  SPAR_NO: "SPAR",
+};
