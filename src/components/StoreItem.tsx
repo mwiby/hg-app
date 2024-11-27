@@ -12,10 +12,12 @@ const StoreItem: React.FC<StoreItemProps> = ({ store, onClick }) => {
     Søn: ${store.openingHours.sunday || "Stengt"}
   `;
 
+  const handleClick = () => (store.website ? (window.location.href = store.website) : onClick(store));
+
   return (
     <li
       className="bg-white border border-gray-200 rounded-md shadow-sm p-4 hover:shadow-md transition duration-150 ease-in-out transform hover:scale-105 cursor-pointer"
-      onClick={() => onClick(store)}
+      onClick={handleClick}
     >
       <img
         src={store.logo}
