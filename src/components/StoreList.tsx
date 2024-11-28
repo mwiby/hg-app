@@ -89,7 +89,12 @@ const StoreList = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {currentPageData.map((store: Store) => (
-          <StoreItem key={store.id} store={store} onClick={(s) => console.log(s)} />
+          <StoreItem 
+            key={store.id}
+            store={store}
+            onClick={(store) =>
+              alert(`${store.name} har ingen nettside tilgjengelig.`)
+            } />
         ))}
       </div>
 
