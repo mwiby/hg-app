@@ -69,7 +69,25 @@ const ProductList = () => {
 
         </div>
       </div>
-
+      {/* 
+      <h2 className="text-xl font-semibold mb-4">Søk etter butikker</h2>
+      <div className="flex space-x-2 mb-4">
+        <input
+          type="text"
+          placeholder="Søk butikk ..."
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          onKeyDown={handleKeyDown} 
+          className="w-full p-2 border rounded"
+        />
+        <button
+          onClick={handleSearch} 
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Søk
+        </button>
+      </div>
+      */}
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {currentPageData.map((product) => (
           <ProductItem key={product.id} product={product} onClick={setSelectedProduct} />
