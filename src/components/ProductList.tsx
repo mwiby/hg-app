@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchProductData } from "../api";
+import { fetchProductData, fetchProductSearchData } from "../api";
 import { Product } from "../types/dataTypes";
 import Pagination from "./Pagination";
 import ProductModal from "./ProductModal";
@@ -9,22 +9,63 @@ import ProductItem from "./ProductItem";
 const PROD_PER_PAGE = 9;
 
 const ProductList = () => {
-  const { data, error, isLoading } = useQuery<Product[]>({
-    queryKey: ["productData"],
-    queryFn: fetchProductData,
-  });
 
+  const [searchInput, setSearchInput] = useState(""); 
+  const [search, setSearch] = useState("");
   const [sortCriteria, setSortCriteria] = useState<"price" | "name">("price");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
+  const {
+    data: productData,
+    error: productError,
+    isLoading: isProductLoading,
+  } = useQuery<Product[]>({
+    queryKey: ["productData"],
+    queryFn: fetchProductData,
+  });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>API Error: {error instanceof Error ? error.message : "Unknown error"}</p>;
-  if (!data || data.length === 0) return <p>No product data found</p>;
+  const {
+    data: searchData,
+    error: searchError,
+    isLoading: isSearchLoading,
+  } = useQuery<Product[]>({
+    queryKey: ["ProductSearchData", search],
+    queryFn: () => fetchProductSearchData(search),
+    staleTime: 5000,
+    enabled: !!search, // Only run this query when there's a search input
+  });
+  
+  const displayedData = search ? searchData : productData;
 
-  const sortedData = [...data].sort((a, b) => {
+  if (isProductLoading || isSearchLoading) return <p>Loading...</p>;
+  if (productError || searchError)
+    return (
+      <p>
+        API Error:{" "}
+        {productError instanceof Error
+          ? productError.message
+          : searchError instanceof Error
+          ? searchError.message
+          : "Unknown error"}
+      </p>
+    );
+  if (!displayedData || displayedData.length === 0)
+    return <p>No product data found</p>;
+
+  const handleSearch = () => {
+    setSearch(searchInput); 
+    setCurrentPage(1); 
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  const sortedData = [...displayedData].sort((a, b) => {
     if (sortCriteria === "price") {
       return sortOrder === "asc"
         ? a.current_price - b.current_price
@@ -69,12 +110,12 @@ const ProductList = () => {
 
         </div>
       </div>
-      {/* 
-      <h2 className="text-xl font-semibold mb-4">Søk etter butikker</h2>
+
+      <h2 className="text-xl font-semibold mb-4">Søk etter produkt</h2>
       <div className="flex space-x-2 mb-4">
         <input
           type="text"
-          placeholder="Søk butikk ..."
+          placeholder="Søk produkt ..."
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           onKeyDown={handleKeyDown} 
@@ -87,7 +128,7 @@ const ProductList = () => {
           Søk
         </button>
       </div>
-      */}
+
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {currentPageData.map((product) => (
           <ProductItem key={product.id} product={product} onClick={setSelectedProduct} />
