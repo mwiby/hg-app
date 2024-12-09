@@ -9,8 +9,7 @@ import ProductItem from "./ProductItem";
 const PROD_PER_PAGE = 9;
 
 const ProductList = () => {
-
-  const [searchInput, setSearchInput] = useState(""); 
+  const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
   const [sortCriteria, setSortCriteria] = useState<"price" | "name">("price");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
@@ -34,32 +33,18 @@ const ProductList = () => {
     queryKey: ["ProductSearchData", search],
     queryFn: () => fetchProductSearchData(search),
     staleTime: 5000,
-    enabled: !!search, // Only run this query when there's a search input
+    enabled: !!search
   });
-  
-  const displayedData = search ? searchData : productData;
 
-  if (isProductLoading || isSearchLoading) return <p>Loading...</p>;
-  if (productError || searchError)
-    return (
-      <p>
-        API Error:{" "}
-        {productError instanceof Error
-          ? productError.message
-          : searchError instanceof Error
-          ? searchError.message
-          : "Unknown error"}
-      </p>
-    );
-  if (!displayedData || displayedData.length === 0)
-    return <p>No product data found</p>;
+  const displayedData = search ? searchData : productData;
 
   const handleSearch = () => {
     if (searchInput.trim().length < 3) {
-      alert("Vennligst skriv inn minst 3 tegn for søket.");
+      alert("Vennligst skriv inn minst 3 tegn for søket."); 
       return;
     }
     setSearch(searchInput.trim());
+    setCurrentPage(1); 
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -68,7 +53,7 @@ const ProductList = () => {
     }
   };
 
-  const sortedData = [...displayedData].sort((a, b) => {
+  const sortedData = [...(displayedData || [])].sort((a, b) => {
     if (sortCriteria === "price") {
       return sortOrder === "asc"
         ? a.current_price - b.current_price
@@ -89,6 +74,7 @@ const ProductList = () => {
 
   return (
     <div className="px-4 w-full max-w-5xl mx-auto">
+      {/* Header with sort options */}
       <div className="flex justify-between items-center py-4 mb-6 bg-blue-50 rounded-lg shadow-sm">
         <h1 className="text-2xl font-semibold text-blue-700">Produktliste</h1>
         <div className="flex items-center space-x-4">
@@ -96,21 +82,17 @@ const ProductList = () => {
           <select
             value={`${sortCriteria}-${sortOrder}`}
             onChange={(e) => {
-
               const [criteria, order] = e.target.value.split("-");
               setSortCriteria(criteria as "price" | "name");
               setSortOrder(order as "asc" | "desc");
             }}
-
             className="px-3 py-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-700"
           >
-
             <option value="price-asc">Pris (lavest først)</option>
             <option value="price-desc">Pris (høyest først)</option>
             <option value="name-asc">Navn (A til Å)</option>
             <option value="name-desc">Navn (Å til A)</option>
           </select>
-
         </div>
       </div>
 
@@ -121,33 +103,68 @@ const ProductList = () => {
           placeholder="Søk produkt ..."
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          onKeyDown={handleKeyDown} 
+          onKeyDown={handleKeyDown}
           className="w-full p-2 border rounded"
         />
         <button
-          onClick={handleSearch} 
+          onClick={handleSearch}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
           Søk
         </button>
       </div>
 
-      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {currentPageData.map((product) => (
-          <ProductItem key={product.id} product={product} onClick={setSelectedProduct} />
-        ))}
-      </ul>
-      
+      {isProductLoading || isSearchLoading ? (
+        <p>Loading...</p>
+      ) : productError || searchError ? (
+        <p>
+          API Error:{" "}
+          {productError instanceof Error
+            ? productError.message
+            : searchError instanceof Error
+            ? searchError.message
+            : "Unknown error"}
+        </p>
+      ) : displayedData && displayedData.length > 0 ? (
+        <>
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {currentPageData.map((product) => (
+              <ProductItem
+                key={product.id}
+                product={product}
+                onClick={setSelectedProduct}
+              />
+            ))}
+          </ul>
+          
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
+        </>
+      ) : (
+
+        <div className="bg-blue-50 text-blue-700 p-6 rounded-lg shadow-md text-center">
+          <h3 className="text-lg font-semibold">Ingen produkter funnet</h3>
+          <p className="text-sm text-gray-700 mt-2">
+            Prøv å justere søkekriteriene, eller klikk på "Tilbakestill søk" for å starte på nytt.
+          </p>
+          <button
+            onClick={() => {
+              setSearchInput("");
+              setSearch("");
+            }}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Tilbakestill søk
+          </button>
+        </div>
+      )}
       <ProductModal
         product={selectedProduct}
         isOpen={!!selectedProduct}
         onClose={() => setSelectedProduct(null)}
-      />
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={(page) => setCurrentPage(page)}
       />
     </div>
   );
