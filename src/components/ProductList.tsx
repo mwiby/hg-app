@@ -55,8 +55,11 @@ const ProductList = () => {
     return <p>No product data found</p>;
 
   const handleSearch = () => {
-    setSearch(searchInput); 
-    setCurrentPage(1); 
+    if (searchInput.trim().length < 3) {
+      alert("Vennligst skriv inn minst 3 tegn for søket.");
+      return;
+    }
+    setSearch(searchInput.trim());
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
