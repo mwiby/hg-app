@@ -35,10 +35,20 @@ const StoreList = () => {
   if (error) return <p>API Error: {error instanceof Error ? error.message : "Unknown error"}</p>;
   if (!data || data.length === 0) return <p>No store data found</p>;
 
-  const filteredData = data?.filter((store: Store) => 
-    (!selectedGroup || store.group === selectedGroup) &&
-    store.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredData = data?.filter((store: Store) => {
+    const address = store.address || ""; 
+    const locationName = address.split(",").pop()?.trim().toLowerCase() || "";
+    const searchLower = search.toLowerCase();
+  
+    return (
+      (!selectedGroup || store.group === selectedGroup) &&
+      (store.name.toLowerCase().includes(searchLower) ||
+       address.toLowerCase().includes(searchLower) ||
+       locationName.includes(searchLower))
+    );
+  });
+  
+  
 
   const totalItems = filteredData?.length ?? 0;
   const totalPages = Math.ceil(totalItems / STORE_PER_PAGE);
