@@ -58,10 +58,12 @@ const StoreItem: React.FC<StoreItemProps> = ({ store, onClick }) => {
       </div>
 
       {store.website ? (
-        <p className="absolute bottom-3 right-3 text-xs text-blue-500">
+        <p
+          className="absolute bottom-3 right-3 text-xs text-blue-500 bg-blue-100 px-3 py-1 rounded-full shadow-sm hover:bg-blue-200 transition duration-200 cursor-pointer"
+        >
           Klikk - Nettsted
         </p>
-      ) : (
+        ) : (
         <p className="absolute bottom-3 right-3 text-xs text-gray-500">
           Ingen nettside tilgjengelig
         </p>
