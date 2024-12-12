@@ -22,7 +22,7 @@ const StoreItem: React.FC<StoreItemProps> = ({ store, onClick }) => {
         store.website ? "hover:-translate-y-1 hover:shadow-lg" : ""
       }`}
       onClick={handleClick}
-      style={{ cursor: store.website ? "pointer" : "default" }}
+      style={{ cursor: store.website ? "pointer" : "default", listStyle: "none"}}
     >
 
       <img
