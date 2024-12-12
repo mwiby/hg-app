@@ -5,6 +5,7 @@ import { Product } from "../types/dataTypes";
 import Pagination from "./Pagination";
 import ProductModal from "./ProductModal";
 import ProductItem from "./ProductItem";
+import LoadingSpinner from "./LoadingSpinner";
 
 const PROD_PER_PAGE = 9;
 
@@ -115,7 +116,7 @@ const ProductList = () => {
       </div>
 
       {isProductLoading || isSearchLoading ? (
-        <p>Loading...</p>
+        <LoadingSpinner />
       ) : productError || searchError ? (
         <p>
           API Error:{" "}

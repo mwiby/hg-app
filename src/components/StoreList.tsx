@@ -4,6 +4,7 @@ import { fetchStoreData } from "../api";
 import { Store, StoreLabels } from "../types/dataTypes";
 import Pagination from "./Pagination";
 import StoreItem from "./StoreItem";
+import LoadingSpinner from "./LoadingSpinner";
 
 
 const STORE_PER_PAGE = 10;
@@ -31,7 +32,7 @@ const StoreList = () => {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <LoadingSpinner />;
   if (error) return <p>API Error: {error instanceof Error ? error.message : "Unknown error"}</p>;
   if (!data || data.length === 0) return <p>No store data found</p>;
 
