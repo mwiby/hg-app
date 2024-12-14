@@ -7,11 +7,12 @@ const apiKey = import.meta.env.VITE_KASSALAPP_TOKEN;
 
 export const fetchProductData = async (): Promise<Product[]> => {
 
-  const response = await fetch('https://kassal.app/api/v1/products?size=100', {
+  const response = await fetch('https://kassal.app/api/v1/products?size=60&search=kjøtt', {
     headers: {
       Authorization: `Bearer ${apiKey}`
     },
   });
+  console.log("SK")
 
   if (!response.ok) {
     throw new Error('Failed to fetch product data, something went wrong on API or with the token.');
