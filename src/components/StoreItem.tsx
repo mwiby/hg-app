@@ -11,8 +11,13 @@ const StoreItem: React.FC<StoreItemProps> = ({ store, onClick }) => {
     Søn: ${store.openingHours.sunday || "Stengt"}
   `;
 
-  const handleClick = () =>
-    store.website ? (window.location.href = store.website) : onClick(store);
+  const handleClick = () => {
+    if (store.website) {
+      window.open(store.website, "_blank", "noopener,noreferrer");
+    } else {
+      onClick(store);
+    }
+  };
 
   return (
     <li
@@ -58,15 +63,16 @@ const StoreItem: React.FC<StoreItemProps> = ({ store, onClick }) => {
       </div>
 
       {store.website ? (
-      <a
-        href={store.website}
-        target="_blank"
-        rel="noopener noreferrer"
-        title="Go to store website"
-        className="absolute bottom-3 right-3 text-xs text-white bg-blue-500 px-3 py-1 rounded-full shadow-sm hover:bg-blue-600 hover:shadow-md transition duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-      >
-        Last nettside
-      </a>
+        <a
+          href={store.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Go to store website"
+          className="absolute bottom-3 right-3 text-xs text-white bg-blue-500 px-3 py-1 rounded-full shadow-sm hover:bg-blue-600 hover:shadow-md transition duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+        >
+          Last nettside
+        </a>
+
       ) : (
       <p className="absolute bottom-3 right-3 text-xs text-gray-500">
         Ingen nettside tilgjengelig
