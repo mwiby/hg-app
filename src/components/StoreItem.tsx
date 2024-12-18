@@ -67,7 +67,7 @@ const StoreItem: React.FC<StoreItemProps> = ({ store, onClick }) => {
           href={store.website}
           target="_blank"
           rel="noopener noreferrer"
-          title="Go to store website"
+          title="Gå til butikken sin nettside"
           className="absolute bottom-3 right-3 text-xs text-white bg-blue-500 px-3 py-1 rounded-full shadow-sm hover:bg-blue-600 hover:shadow-md transition duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
         >
           Last nettside
