@@ -12,7 +12,6 @@ export const fetchProductData = async (): Promise<Product[]> => {
       Authorization: `Bearer ${apiKey}`
     },
   });
-  console.log("SK")
 
   if (!response.ok) {
     throw new Error('Failed to fetch product data, something went wrong on API or with the token.');

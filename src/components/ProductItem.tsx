@@ -12,14 +12,9 @@ const getImageSrc = (image: string | undefined, categories: Category[]): string 
   return fImage; 
 };
 
-
 const ProductItem: React.FC<ProductItemProps> = ({ product, onClick }) => {
 
   const imageSrc = getImageSrc(product.image, product.category);
-
-  console.log("Rendering ProductItem with:", product);
-
-  console.log("Image Source:", imageSrc);
 
   return (
     <li
