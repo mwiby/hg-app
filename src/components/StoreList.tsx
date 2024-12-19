@@ -49,8 +49,6 @@ const StoreList = () => {
     );
   });
   
-  
-
   const totalItems = filteredData?.length ?? 0;
   const totalPages = Math.ceil(totalItems / STORE_PER_PAGE);
   const startIndex = (currentPage - 1) * STORE_PER_PAGE;

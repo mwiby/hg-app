@@ -1,6 +1,7 @@
 import { StoreItemProps } from "../types/dataTypes";
 
 const StoreItem: React.FC<StoreItemProps> = ({ store, onClick }) => {
+  
   const openingHoursText = `
     Man: ${store.openingHours.monday || "Stengt"}, 
     Tir: ${store.openingHours.tuesday || "Stengt"}, 
