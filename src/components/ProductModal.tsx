@@ -3,7 +3,7 @@ import { ProductModalProps } from "../types/dataTypes";
 
 const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-
+  const fallbackImage = "https://dummyimage.com/150x150/cccccc/000000%26text=No+Image";
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -36,9 +36,9 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose })
         </button>
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
           <img
-            src={product.image}
-            alt={product.name}
-            className="w-full md:w-1/3 rounded-lg object-cover"
+            src={product.image || fallbackImage}
+            alt={product.name || "Product image"}
+            className="w-full h-48 object-cover rounded-md mb-3"
           />
           <div className="flex-1">
             <h2 className="text-2xl font-semibold text-gray-800 mb-2">{product.name}</h2>

@@ -1,20 +1,7 @@
-import { ProductItemProps, Category } from "../types/dataTypes";
-
-const fImage = "https://cdn-icons-png.flaticon.com/512/2748/2748558.png";
-
-const getImageSrc = (image: string | undefined, categories: Category[]): string => {
-  if (image) return image; 
-  if (categories.length > 0) {
-    const categoryName = categories[0].name.toLowerCase(); 
-    if (categoryName.includes("electronics")) return "https://via.placeholder.com/150?text=Electronics";
-    if (categoryName.includes("fashion")) return "https://via.placeholder.com/150?text=Fashion";
-  }
-  return fImage; 
-};
+import { ProductItemProps } from "../types/dataTypes";
 
 const ProductItem: React.FC<ProductItemProps> = ({ product, onClick }) => {
-
-  const imageSrc = getImageSrc(product.image, product.category);
+  const fallbackImage = "https://dummyimage.com/150x150/cccccc/000000%26text=No+Image";
 
   return (
     <li
@@ -22,7 +9,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onClick }) => {
       onClick={() => onClick(product)}
     >
       <img
-        src={imageSrc}
+        src={product.image || fallbackImage}
         alt={product.name || "Product image"}
         className="w-full h-48 object-cover rounded-md mb-3"
       />
