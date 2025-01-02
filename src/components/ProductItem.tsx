@@ -20,7 +20,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onClick }) => {
       <p className="text-md text-blue-600 font-semibold mb-1">Pris: {product.current_price}</p>
       <p className="text-sm text-gray-500 mb-1">Leverandør: {product.vendor}</p>
       <p className="text-sm text-gray-600">
-        Butikk: <span className="font-medium">{product.store.name}</span>
+        Butikk: <span className="font-medium">{product.store?.name || "Ukjent butikk"}</span>
       </p>
     </li>
   );
