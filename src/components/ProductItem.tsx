@@ -9,9 +9,12 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onClick }) => {
       onClick={() => onClick(product)}
     >
       <img
-        src={product.image || fallbackImage}
+        src={product.image}
         alt={product.name || "Product image"}
         className="w-full h-48 object-cover rounded-md mb-3"
+        onError={(e) => {
+          (e.target as HTMLImageElement).src = fallbackImage;
+        }}
       />
       <h2 className="text-lg font-medium text-gray-800">{product.name}</h2>
       <p className="text-md text-blue-600 font-semibold mb-1">Pris: {product.current_price}</p>

@@ -36,9 +36,12 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose })
         </button>
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
           <img
-            src={product.image || fallbackImage}
+            src={product.image}
             alt={product.name || "Product image"}
             className="w-full h-48 object-cover rounded-md mb-3"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = fallbackImage;
+            }}
           />
           <div className="flex-1">
             <h2 className="text-2xl font-semibold text-gray-800 mb-2">{product.name}</h2>
