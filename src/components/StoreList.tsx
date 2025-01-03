@@ -6,7 +6,6 @@ import Pagination from "./Pagination";
 import StoreItem from "./StoreItem";
 import LoadingSpinner from "./LoadingSpinner";
 
-
 const STORE_PER_PAGE = 10;
 
 const StoreList = () => {
@@ -23,13 +22,18 @@ const StoreList = () => {
 
   const handleSearch = () => {
     setSearch(searchInput); 
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch();
     }
+  };
+
+  const handleGroupSelection = (group: string | null) => {
+    setSelectedGroup(group);
+    setCurrentPage(1); 
   };
 
   if (isLoading) return <LoadingSpinner />;
@@ -79,7 +83,7 @@ const StoreList = () => {
         <h3 className="font-medium mb-2">Velg kjede:</h3>
         <div className="flex space-x-2">
           <button
-            onClick={() => setSelectedGroup(null)}
+            onClick={() => handleGroupSelection(null)}
             className={`px-3 py-2 rounded ${!selectedGroup ? "bg-blue-600 text-white" : "bg-gray-200"}`}
           >
             Alle
@@ -87,7 +91,7 @@ const StoreList = () => {
           {Array.from(new Set(data?.map((store: Store) => store.group))).map((group: string) => (
             <button
               key={group}
-              onClick={() => setSelectedGroup(group)}
+              onClick={() => handleGroupSelection(group)}
               className={`px-3 py-2 rounded ${selectedGroup === group ? "bg-blue-600 text-white" : "bg-gray-200"}`}
             >
               {StoreLabels[group] || group}
