@@ -46,7 +46,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose })
           />
           <div className="text-left">
             <h2 className="text-2xl font-semibold text-gray-800 mb-2">{product.name}</h2>
-            <p className="text-blue-600 text-lg font-medium mb-4">Pris: {product.current_price}</p>
+            <p className="text-blue-600 text-lg font-medium mb-4">Pris: {product.current_price} kr</p>
             <p className="text-gray-700 mb-4">{product.description}</p>
             <p className="text-gray-600">
               <strong>Leverandør:</strong> {product.vendor}

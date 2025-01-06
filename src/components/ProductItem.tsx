@@ -17,7 +17,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onClick }) => {
         }}
       />
       <h2 className="text-lg font-medium text-gray-800">{product.name}</h2>
-      <p className="text-md text-blue-600 font-semibold mb-1">Pris: {product.current_price}</p>
+      <p className="text-md text-blue-600 font-semibold mb-1">Pris: {product.current_price} kr</p>
       <p className="text-sm text-gray-500 mb-1">Leverandør: {product.vendor}</p>
       <p className="text-sm text-gray-600">
         Butikk: <span className="font-medium">{product.store?.name || "Ukjent butikk"}</span>
