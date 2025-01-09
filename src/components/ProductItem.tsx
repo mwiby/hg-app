@@ -35,53 +35,75 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onClick }) => {
   };
 
   const priceChange = getPriceChange();
+  const priceDifference = lastChangedPrice
+    ? Math.abs(product.current_price - lastChangedPrice).toFixed(2)
+    : null;
 
   return (
     <li
-      className="bg-white border border-gray-200 rounded-md shadow-sm p-4 hover:shadow-md transition duration-150 ease-in-out transform hover:scale-105 cursor-pointer"
+      className="bg-white border border-gray-200 rounded-lg shadow-lg p-4 hover:shadow-xl transition transform hover:scale-105 cursor-pointer"
       onClick={() => onClick(product)}
     >
       <img
         src={product.image}
         alt={product.name || "Product image"}
-        className="w-full h-48 object-cover rounded-md mb-3"
+        className="w-full h-48 object-cover rounded-lg mb-3"
         onError={(e) => {
           (e.target as HTMLImageElement).src = fallbackImage;
         }}
       />
-      <h2 className="text-lg font-medium text-gray-800">{product.name}</h2>
-      <p className="text-md text-blue-600 font-semibold mb-1">
+      <div className="flex justify-between items-center mb-2">
+        <h2 className="text-lg font-semibold text-gray-800 truncate max-w-[70%]">{product.name}</h2>
+        {priceChange && lastChangedPrice !== null && (
+          <span
+            className={`inline-flex items-center px-3 py-1 text-xs font-medium rounded-full flex-shrink-0 ${
+              priceChange === "up"
+                ? "bg-red-100 text-red-600"
+                : "bg-green-100 text-green-600"
+            }`}
+          >
+            {priceChange === "up" ? (
+              <>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 mr-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 15l7-7 7 7"
+                  />
+                </svg>
+                +{priceDifference} kr
+              </>
+            ) : (
+              <>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 mr-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+                -{priceDifference} kr
+              </>
+            )}
+          </span>
+        )}
+      </div>
+      <p className="text-md text-blue-600 font-semibold mb-2">
         Pris: {product.current_price} kr
-        {priceChange === "up" && lastChangedPrice !== null && (
-          <span className="text-red-600 ml-2 flex items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-            </svg>
-            +{(product.current_price - lastChangedPrice).toFixed(2)} kr
-          </span>
-        )}
-        {priceChange === "down" && lastChangedPrice !== null && (
-          <span className="text-green-600 ml-2 flex items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-            -{(lastChangedPrice - product.current_price).toFixed(2)} kr
-          </span>
-        )}
       </p>
       <p className="text-sm text-gray-500 mb-1">Leverandør: {product.vendor}</p>
       <p className="text-sm text-gray-600">
@@ -95,4 +117,5 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onClick }) => {
 };
 
 export default ProductItem;
+
 
