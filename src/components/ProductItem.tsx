@@ -1,6 +1,5 @@
 import React from "react";
 import { ProductItemProps } from "../types/dataTypes";
-import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/solid";
 
 const ProductItem: React.FC<ProductItemProps> = ({ product, onClick }) => {
   const fallbackImage =
@@ -55,13 +54,31 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onClick }) => {
         Pris: {product.current_price} kr
         {priceChange === "up" && lastChangedPrice !== null && (
           <span className="text-red-600 ml-2 flex items-center">
-            <ArrowUpIcon className="h-5 w-5 mr-1" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+            </svg>
             +{(product.current_price - lastChangedPrice).toFixed(2)} kr
           </span>
         )}
         {priceChange === "down" && lastChangedPrice !== null && (
           <span className="text-green-600 ml-2 flex items-center">
-            <ArrowDownIcon className="h-5 w-5 mr-1" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
             -{(lastChangedPrice - product.current_price).toFixed(2)} kr
           </span>
         )}
@@ -78,3 +95,4 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onClick }) => {
 };
 
 export default ProductItem;
+
