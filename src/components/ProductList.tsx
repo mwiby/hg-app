@@ -79,7 +79,7 @@ const ProductList = () => {
       <div className="flex justify-between items-center py-4 mb-6 bg-blue-50 rounded-lg shadow-sm">
         <h1 className="text-2xl font-semibold text-blue-700">Produktliste</h1>
         <div className="flex items-center space-x-4">
-          <span className="text-gray-600">Sorter etter:</span>
+          <span className="text-gray-600">Sorter:</span>
           <select
             value={`${sortCriteria}-${sortOrder}`}
             onChange={(e) => {
