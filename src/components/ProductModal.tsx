@@ -57,6 +57,9 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose })
             <p className="text-gray-600">
               <strong>Butikk:</strong> {product.store.name}
             </p>
+            <p className="text-gray-600">
+              <strong>Ingredienser:</strong> {product.ingredients || "Ingen tilgang"}
+            </p>
             <a
               href={product.url}
               target="_blank"
